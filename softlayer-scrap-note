@@ -1,0 +1,6 @@
+slcli vs create --datacenter=sjc01 --hostname=spark3 --os CENTOS_7_64 --domain=lab2.sftlyr.ws --billing=hourly --cpu=2 --memory=4096 --disk=25,25  --vlan-private 860403 --key=hw4
+
+curl 'https://SL539823:5122ef9563db51684945cf4d65db26104fb2ee43c4c30d9603082cca7db39cd5@api.softlayer.com/rest/v3/SoftLayer_Account/VirtualGuests.json?objectMask=id;hostname;fullyQualifiedDomainName;primaryIpAddress;operatingSystem.passwords' | jq -r '.[] | select(.hostname == "gpfs1") | {fullyQualifiedDomainName,id, root_password: .operatingSystem.passwords[] | select(.username == "root").password, primaryIpAddress}'
+
+ssh-keygen -f id_rsa -b 2048 -t rsa -C "Creating SSH Keys for SL A/C"
+slcli sshkey add -f id_rsa.pub --note 'added during HW 4' hw4

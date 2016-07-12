@@ -1,0 +1,28 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+ . /etc/bashrc
+fi
+
+# User specific aliases and functions
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Java
+export JAVA_HOME="$(readlink -f $(which java) | grep -oP '.*(?=/bin)')"
+
+# Spark
+export SPARK_HOME="/usr/local/spark"
+export SPARK_LOCAL_DIRS=/data/spark/local
+export SPARK_WORKER_DIR=/data/spark/worker
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+# Hadoop
+export HADOOP_HOME="/usr/local/hadoop"
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+# Spark (part 2, should come after hadoop setup)
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
